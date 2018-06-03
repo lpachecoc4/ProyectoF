@@ -30,8 +30,8 @@ class Button{
     return abs(x-position.x)<=90&&abs(y-position.y)<=90;
   }
   
-  boolean click(int x, int y){
-    return pick(x,y)&&mousePressed;
+  boolean click(){
+    return pick(mouseX,mouseY)&&mousePressed;
   }
   
 }

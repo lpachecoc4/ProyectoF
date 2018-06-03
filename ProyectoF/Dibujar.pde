@@ -6,6 +6,7 @@ void dibujar(){
   newArm.display();
   setLength.display();
   setAngle.display();
+  erase.display();
   //println(barras.size());
   for (int i=0; i<barras.size(); i++){
         barras.get(i).display();
@@ -91,7 +92,15 @@ void dibujar(){
       }
       break;
         
-      
+    case 3:
+      for(int i=0; i<barras.size(); i++){
+        if(barras.get(i).click()){
+          barras.remove(i);
+          mode=0;
+        }
+      }
+    
+    break;
      
   
   }

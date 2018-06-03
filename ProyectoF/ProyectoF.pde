@@ -6,6 +6,7 @@ Button newBar;
 Button newArm;
 Button setAngle;
 Button setLength;
+Button erase;
 
 int mode;
 int x;
@@ -30,6 +31,7 @@ void setup(){
   newArm=new Button("newarm.png", new PVector(1100,800));
   setAngle= new Button("setAngle.png",new PVector(360,800));
   setLength= new Button("setLength.png",new PVector(550,800));
+  erase= new Button("Papelera.png", new PVector(910,800));
 }
 
 void draw(){
@@ -37,9 +39,12 @@ dibujar();
 }
 
 void mousePressed(){
-  if (mode==0&&newBar.click(mouseX,mouseY)){
+  if (mode==0&&newBar.click()){
     mode=1;
-  }  
+  } 
+  if(mode==0&&erase.click()){
+    mode=3;
+  }
 }
 
 
