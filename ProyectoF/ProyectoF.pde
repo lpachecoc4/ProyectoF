@@ -3,57 +3,67 @@ Node start;
 Node fin;
 
 Button newBar;
-Button newArm;
+Button erase;
 Button setAngle;
 Button setLength;
-Button erase;
+Button move;
+Button force;
+Button moment;
 
-int mode;
-int x;
-int y;
-int z,w;
+int mode, x, y, z, w, f,d,u;
+int j=0;
 
-Boolean P;
-Boolean Q;
-Boolean M;
+char[] numeros=new char[3];
+
+Boolean P, Q, M;
 
 ArrayList<Bar> barras=new ArrayList<Bar>();
 //ArrayList<Node> nodos=new ArrayList<Node>();
 
-void setup(){
-  size(1200,900);
+void setup() {
+  fullScreen();
   mode=0;
   P=false;
   Q=false;
   M=false;
-    
-  newBar=new Button("xd.png", new PVector(170,800));
-  newArm=new Button("newarm.png", new PVector(1100,800));
-  setAngle= new Button("setAngle.png",new PVector(360,800));
-  setLength= new Button("setLength.png",new PVector(550,800));
-  erase= new Button("Papelera.png", new PVector(910,800));
+  numeros[0]=0;
+  numeros[1]=0;
+  numeros[2]=0;
+  
+  erase=new Button("Papelera1.png", new PVector(width*6/88, height*1/11), new PVector(40, 35),2);
+  newBar=new Button("xd1.png", new PVector(width*6/88, height*5/22), new PVector(40, 35),1);
+  setAngle= new Button("setAngle1.png", new PVector(width*6/88, height*4/11), new PVector(40, 35),0);
+  setLength= new Button("setLength1.png", new PVector(width*6/88, height*11/22 ), new PVector(40, 35),3);
+  move=new Button("mano1.png", new PVector(width*6/88, height*7/11), new PVector(40, 35),5);
+  force= new Button("force1.png", new PVector(width*6/88, height*17/22), new PVector(40, 35),0);
+  moment= new Button("moment1.png", new PVector(width*6/88, height*10/11 ), new PVector(40, 35),0);
 }
 
-void draw(){
-dibujar();
+void draw() {
+  dibujar();
 }
 
-void mousePressed(){
-  if (mode==0&&newBar.click()){
-    mode=1;
-  } 
-  if(mode==0&&erase.click()){
-    mode=3;
-  }
+void mousePressed() {
 }
 
 
-void mouseReleased(){
-  if(mode==1&&P){
+void mouseReleased() {
+  if (mode==1&&P) {
     Q=true;
   }
 }
 
-boolean nose(int i){
+void mouseWheel(MouseEvent event) {
+  float q=event.getCount();
+  if (q==-1) {
+    f++;
+  }
+  if (q==1) {
+    f--;
+  }
+  println(f);
+}
+
+boolean nose(int i) {
   return barras.get(i).origin().click()||barras.get(i).end().click();
 }

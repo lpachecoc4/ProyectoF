@@ -13,9 +13,24 @@ class Bar {
     end=new Node(new PVector(tempOrigin.x()+tempLength*cos(radians(tempAngle)), tempOrigin.y()-tempLength*sin(radians(tempAngle))));
   }
 
-  //void setEnd(int tempLength){
-  //  end=new Node();
-  //}
+  void setEnd(int tempL){
+    if(origin.x()<end.x()&&origin.y()<end.y()){
+      end=new Node(new PVector(origin.x()+10*tempL*cos(getAngle()),origin.y()+tempL*10*sin(getAngle())));
+    }
+    if(origin.x()>end.x()&&origin.y()>end.y()){
+      end=new Node(new PVector(origin.x()-10*tempL*cos(getAngle()),origin.y()-10*tempL*sin(getAngle())));
+    }
+    if(origin.x()<end.x()&&origin.y()>end.y()){
+      end=new Node(new PVector(origin.x()+10*tempL*cos(getAngle()),origin.y()-10*tempL*sin(getAngle())));
+    }
+    if(origin.x()>end.x()&&origin.y()<end.y()){
+      end=new Node(new PVector(origin.x()-10*tempL*cos(getAngle()),origin.y()+10*tempL*sin(getAngle())));
+    }
+  }
+  
+  int getAngle(){
+    return int(180*atan(abs(origin.y()-end.y())/abs(origin.x()-end.x()))/PI);
+  }
 
   boolean pick(int x, int y) {
     float x1, y1, x2, y2, m, b, y3, m2, b2, x3;
@@ -35,8 +50,7 @@ class Bar {
     
     return sqrt(sq(y-y3)+sq(x-x3))<=10 &&((x>=x2 && x<=x1)||(y>=y2 && y<=y1));
   }
-
-  boolean click(){
+    boolean click(){
     return pick(mouseX,mouseY)&&mousePressed;
   }
 
