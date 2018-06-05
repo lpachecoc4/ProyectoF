@@ -1,19 +1,29 @@
 class Button {
+  String texto;
   PVector position, size;  
   PImage img;
   int valor;
+  boolean tipo;
 
-  Button(String tempText, PVector tempPos, PVector tempTam, int val) {
+  Button(String tempText, PVector tempPos, PVector tempTam, int val, boolean tip) {
     setValor(val);
     setImg(tempText);
     position=tempPos;
     size=tempTam;
+    setTipo(tip);
+    setTex(tempText);
   }
 
+  void setTipo(boolean a) {
+    tipo=a;
+  }
   void setImg(String imgn) {
     img=loadImage(imgn);
   } 
-  
+  void setTex(String txt) {
+    texto=txt;
+  } 
+
   void setValor(int a) {
     valor=a;
   } 
@@ -22,19 +32,29 @@ class Button {
     rectMode(RADIUS);
     fill(255);
     stroke(0);
-    if(click()){    
-    mode=valor;
+    if (click()) { 
+      if (tipo) {
+        mode=valor;
+      } else {
+        pantalla=valor;
+      }
     }
     if (pick(mouseX, mouseY)) {
-      strokeWeight(10);
+      strokeWeight(8);
       rect(position.x, position.y, size.x, size.y, 8);
     } else {
-      strokeWeight(5);      
+      strokeWeight(5);
       rect(position.x, position.y, size.x, size.y, 8);
     }
-    
-    imageMode(CENTER);
-    image(img,position.x, position.y);
+    if (tipo||valor==0) {
+      imageMode(CENTER);
+      image(img, position.x, position.y);
+    } else {
+      fill(0);
+      textSize(25);
+      textAlign(CENTER);
+      text(texto, position.x, position.y);
+    } 
     popStyle();
   }
 
@@ -43,6 +63,6 @@ class Button {
   }
 
   boolean click() {
-    return pick(mouseX,mouseY)&&mousePressed;
+    return pick(mouseX, mouseY)&&mousePressed;
   }
 }

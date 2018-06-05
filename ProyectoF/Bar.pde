@@ -1,6 +1,9 @@
 class Bar {
   Node origin;
   Node end;
+  
+  boolean mov1=false;
+    boolean mov2=false;
 
 
   Bar(Node tempOrigin, Node tempEnd) {
@@ -28,8 +31,8 @@ class Bar {
     }
   }
   
-  int getAngle(){
-    return int(180*atan(abs(origin.y()-end.y())/abs(origin.x()-end.x()))/PI);
+  float getAngle(){
+    return atan(abs(origin.y()-end.y())/abs(origin.x()-end.x()));
   }
 
   boolean pick(int x, int y) {
@@ -48,23 +51,18 @@ class Bar {
     x3=((b2-b)/(m-m2));
     y3=(x3*m+b);
     
-    return sqrt(sq(y-y3)+sq(x-x3))<=10 &&((x>=x2 && x<=x1)||(y>=y2 && y<=y1));
+    return (sqrt(sq(y-y3)+sq(x-x3))<=15 &&((x>=x2+5 && x<=x1+5)||(y>=y2+5 && y<=y1+5)||(x>=x1+5 && x<=x2+5)||(y>=y1+5 && y<=y2+5)));
   }
     boolean click(){
-    return pick(mouseX,mouseY)&&mousePressed;
+    return pick(mouseX,mouseY) && mousePressed;
   }
 
   void display() {
     pushStyle();
     if (pick(mouseX, mouseY)) {
       stroke(color(208, 106, 212));
-      //strokeWeight(3);
-      //fill(0);
     } else {
       stroke(color(208, 206, 212));
-      //fill(208, 206, 212);
-
-      //println(arccos(sqrt(sq(origin.x-end.x)+sq(origin.y-end.y))));
     }
     strokeWeight(20);
     line(origin.x(), origin.y(), end.x(), end.y());
